@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Private Server | HomePage</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body{
+			background: #000;
+			display: flex;
+			flex-direction: column;
+			height: 100vh;
+		}
+		.control{
+			height: 50%;
+			width: 100%;
+		}
+		#next{
+			/*background: green;*/
+
+		}
+		#prev{
+			/*background: red;*/
+
+		}
+		#fullscreen{
+			height: 10%;
+			width: 100%;
+			background: #ffffff22;
+			position: absolute;
+			bottom: 0;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			left: 0;
+		}
+		#ppt{
+			margin-right: 15px;
+			height: 40px;
+			width: 40px;
+			cursor:  pointer;
+			pointer-events: initial;
+		}
+	</style>
+</head>
+<body>
+	<!-- <button id="res">Get Res</button> -->
+	<div class="control" id="next"></div>
+	<div class="control" id="prev"></div>
+	<div id="fullscreen">
+		<div id="ppt">
+			<svg fill="#fff" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48">
+		  		<path d="M9.9707031 5.9726562 A 2.0002 2.0002 0 0 0 8 8L8 15 A 2.0002 2.0002 0 0 0 10 17L17 17 A 2.0002 2.0002 0 1 0 17 13L15.201172 13C17.640231 11.128803 20.676326 10 24 10C27.378352 10 30.275248 11.122887 32.767578 13.074219 A 2.0002 2.0002 0 1 0 35.232422 9.9257812C32.122752 7.4911128 28.287648 6 24 6C19.42867 6 15.233877 7.6710306 12 10.429688L12 8 A 2.0002 2.0002 0 0 0 9.9707031 5.9726562 z M 39 15 A 2 2 0 0 0 39 19 A 2 2 0 0 0 39 15 z M 7.5 22 A 2 2 0 0 0 7.5 26 A 2 2 0 0 0 7.5 22 z M 40.5 22 A 2 2 0 0 0 40.5 26 A 2 2 0 0 0 40.5 22 z M 9 29 A 2 2 0 0 0 9 33 A 2 2 0 0 0 9 29 z M 31 31 A 2.0002 2.0002 0 1 0 31 35L32.798828 35C30.359769 36.871197 27.323674 38 24 38C20.621648 38 17.724752 36.877113 15.232422 34.925781 A 2.0002 2.0002 0 1 0 12.767578 38.074219C15.877248 40.508887 19.712352 42 24 42C28.57133 42 32.766123 40.328969 36 37.570312L36 40 A 2.0002 2.0002 0 1 0 40 40L40 33 A 2.0002 2.0002 0 0 0 38 31L31 31 z" fill="#FFFFFF" />
+			</svg>
+		</div>
+	</div>
+	<script>
+const URL="192.168.137.1:8000"
+		const play=''
+		const pause=''
+
+		let isPlaying=false
+		document.getElementById('next').addEventListener('click',()=>{
+			fetch(URL,{method:"POST"})
+		})
+
+		document.getElementById('prev').addEventListener('click',()=>{
+			fetch(URL,{method:"PATCH"})
+		})
+		document.getElementById('fullscreen').addEventListener('click',()=>{document.body.requestFullscreen() })
+		const el=document.getElementById('ppt')
+		el.addEventListener('click',(e)=>{
+			e.preventDefault()
+			if(isPlaying){
+				fetch(URL,{method:"DELETE"})
+				// el.innerHTML=pause
+			}else{
+				fetch(URL,{method:"PUT"})
+				// el.innerHTML=play
+			}
+			isPlaying=!isPlaying
+		 })
+		// document.getElementById('res').addEventListener('click',()=>{
+		// 	fetch(URL,{method:"POST",data:""}).then(res=>res.json()).then(data=>console.log(data))
+		// })
+	</script>
+</body>
+</html>		
